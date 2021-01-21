@@ -6,23 +6,18 @@ const singleNumber = function(nums) {
   let counts = {};
 
   for(let num of nums) {
-    counts[num] = counts[num] + 1 || 1;
-  }
-    
-  console.log(counts);
+    // counts[num] = counts[num] + 1 || 1;
+    const firstTimeUsed = !counts[num];
 
-  let left = 0;
-  let right = Object.keys(counts).length - 1;
-  
-  while(left < right) {
-    console.log('left is less than right');
-    if(Object.values(counts)[left] === 1) {
-      console.log('counts left: ', Object.values(counts)[left]);
-      return Object.keys(counts)[left];
-    } else if(Object.values(counts)[right] === 1) {
-      return Object.keys(counts)[right];
+    if(firstTimeUsed) {
+      counts[num] = 1;
+    } else {
+      delete counts[num];
     }
-    left++;
-    right--;
   }
-};
+
+  return Object.keys(counts)[0];
+}
+
+// Runtime: 96 ms, faster than 55.37% of JavaScript online submissions for Single Number.
+// Memory Usage: 44.9 MB, less than 15.33% of JavaScript online submissions for Single Number.
